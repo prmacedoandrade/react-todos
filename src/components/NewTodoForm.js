@@ -6,7 +6,7 @@ function NewTodoForm(props){
     const [description, setDescription] = useState('');
 
     const submitTodo = () => {
-
+            
         if(description !== '' && assigned !== ''){
             props.addTodo(description, assigned);        
             setDescription('');

@@ -13,9 +13,11 @@ function TodoTable(props) {
             <tbody>
                 {props.todos.map(todo => (
                     <TodoRowItem
+                        key={todo.rowNumber} // Setting de unique indentifier for React
                         rowNumber={todo.rowNumber}
                         rowDescription={todo.rowDescription}
                         rowAssigned={todo.rowAssigned}
+                        deleteTodo={props.deleteTodo}
                     />
 
                 ))}

@@ -2,11 +2,10 @@ import { useState } from 'react';
 import './App.css';
 import TodoTable from './components/TodoTable';
 import NewTodoForm from './components/NewTodoForm';
-import { Todo } from './types/todo';
 
 const App = () => {
     const [showAddTodoForm, setShowAddTodoForm] = useState(false);
-    const [todos, setTodos] = useState<Todo[]>([
+    const [todos, setTodos] = useState([
         { rowNumber: 1, rowDescription: 'Feed Puppy', rowAssigned: 'User One' },
         { rowNumber: 2, rowDescription: 'Water Plants', rowAssigned: 'User Two' },
         { rowNumber: 3, rowDescription: 'Make Dinner', rowAssigned: 'User One' },
@@ -21,7 +20,7 @@ const App = () => {
     const addTodo = (description: string, assigned: string) => {
         const rowNumber = todos.length > 0 ? todos[todos.length - 1].rowNumber + 1 : 1;
 
-        const newTodo: Todo = {
+        const newTodo: TodoModel = {
             rowNumber,
             rowDescription: description,
             rowAssigned: assigned

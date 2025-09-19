@@ -1,16 +1,13 @@
 import { ChangeEvent, useState } from 'react';
 
-interface NewTodoFormProps {
-    addTodo: (description: string, assigned: string) => void;
-}
-
-const NewTodoForm = ({ addTodo }: NewTodoFormProps) => {
+function NewTodoForm(props: {addTodo: Function}){
+    
     const [assigned, setAssigned] = useState('');
     const [description, setDescription] = useState('');
 
     const submitTodo = () => {
         if (description !== '' && assigned !== '') {
-            addTodo(description, assigned);
+            props.addTodo(description, assigned);
             setDescription('');
             setAssigned('');
         }

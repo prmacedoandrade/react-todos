@@ -1,46 +1,34 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import TodoTable from './components/TodoTable';
 import NewTodoForm from './components/NewTodoForm';
+import { Todo } from './types/todo';
 
-function App() {
-
+const App = () => {
     const [showAddTodoForm, setShowAddTodoForm] = useState(false);
-
-    const [todos, setTodos] = useState([
+    const [todos, setTodos] = useState<Todo[]>([
         { rowNumber: 1, rowDescription: 'Feed Puppy', rowAssigned: 'User One' },
         { rowNumber: 2, rowDescription: 'Water Plants', rowAssigned: 'User Two' },
         { rowNumber: 3, rowDescription: 'Make Dinner', rowAssigned: 'User One' },
         { rowNumber: 4, rowDescription: 'Charge phone battery', rowAssigned: 'User One' }
-    ])
+    ]);
 
-    const deleteTodo = (deleteTodoRowNumber) => {
-        let filtered = todos.filter(function(value){
-            return value.rowNumber !== deleteTodoRowNumber;
-        })
+    const deleteTodo = (deleteTodoRowNumber: number) => {
+        const filtered = todos.filter(todo => todo.rowNumber !== deleteTodoRowNumber);
         setTodos(filtered);
-    }
-    
-    const addTodo = (description, assigned) => {
+    };
 
-        let rowNumber = 0;
+    const addTodo = (description: string, assigned: string) => {
+        const rowNumber = todos.length > 0 ? todos[todos.length - 1].rowNumber + 1 : 1;
 
-        if (todos.length > 0) {
-            rowNumber = todos[todos.length - 1].rowNumber + 1;
-        } else {
-            rowNumber = 1;
-        }
-
-        const newTodo = {
-            rowNumber: rowNumber,
+        const newTodo: Todo = {
+            rowNumber,
             rowDescription: description,
             rowAssigned: assigned
         };
-        setTodos(todos => [...todos, newTodo]); //Desconstruct the array and add the newTodo
-        console.log(todos);
 
-    }
-
+        setTodos(prevTodos => [...prevTodos, newTodo]);
+    };
 
     return (
         <div className='mt-5 container'>
@@ -53,15 +41,12 @@ function App() {
                     <button className='btn btn-primary' onClick={() => setShowAddTodoForm(!showAddTodoForm)}>
                         {showAddTodoForm ? 'Close New Todo' : 'New todo'}
                     </button>
-                    
-                    {showAddTodoForm && 
-                        <NewTodoForm addTodo={addTodo} />
-                    }
-                    
+
+                    {showAddTodoForm && <NewTodoForm addTodo={addTodo} />}
                 </div>
             </div>
         </div>
     );
-}
+};
 
 export default App;

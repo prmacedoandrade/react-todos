@@ -1,6 +1,12 @@
-import TodoRowItem from "./TodoRowItem"
+import TodoRowItem from './TodoRowItem';
+import { Todo } from '../types/todo';
 
-function TodoTable(props) {
+interface TodoTableProps {
+    todos: Todo[];
+    deleteTodo: (rowNumber: number) => void;
+}
+
+const TodoTable = ({ todos, deleteTodo }: TodoTableProps) => {
     return (
         <table className='table table-hover'>
             <thead>
@@ -11,20 +17,18 @@ function TodoTable(props) {
                 </tr>
             </thead>
             <tbody>
-                {props.todos.map(todo => (
+                {todos.map(todo => (
                     <TodoRowItem
-                        key={todo.rowNumber} // Setting de unique indentifier for React
+                        key={todo.rowNumber}
                         rowNumber={todo.rowNumber}
                         rowDescription={todo.rowDescription}
                         rowAssigned={todo.rowAssigned}
-                        deleteTodo={props.deleteTodo}
+                        deleteTodo={deleteTodo}
                     />
-
                 ))}
             </tbody>
         </table>
+    );
+};
 
-    )
-}
-
-export default TodoTable
+export default TodoTable;
